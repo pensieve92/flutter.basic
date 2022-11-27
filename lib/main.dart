@@ -1,22 +1,42 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MaterialApp(
+    home:MyApp()
+  ));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      // home:Text('안녕')
-      // home:Icon(Icons.star)
-      // home:Image.asset('assets/dogi.jpg')
-      // home: Center(
-      //   child: Container( width: 50, height: 10, color: Colors.greenAccent),
-      // )
-      home: Scaffold(
+    return Scaffold(
+        floatingActionButton: FloatingActionButton(onPressed: (){
+          print('constext $context');
+          print(context.findAncestorWidgetOfExactType<MaterialApp>());
+          showDialog(
+              context: context,
+              builder: (context){
+            return AlertDialog(
+                title: Text('팝업메세지'),
+              content: TextField(),
+              actions: [
+                TextButton(onPressed: (){
+                  Navigator.of(context).pop();
+                }, child: Text('확인')),
+                TextButton(onPressed: (){
+                  Navigator.of(context).pop();
+                }, child: Text('취소'))
+              ]
+            );
+          });
+        }),
         appBar: AppBar(
           title: Text('Daily'),
         ),
@@ -47,10 +67,9 @@ class MyApp extends StatelessWidget {
               ],
             ),
           )
-
         ),
-      )
-    );
+      );
+
   }
 }
 
