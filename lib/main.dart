@@ -18,16 +18,15 @@ class MyApp extends StatelessWidget {
       // )
       home: Scaffold(
         appBar: AppBar(),
-        body: ListView(
-          children: [
-            Row(children: [Icon(Icons.person), Text('홍길동')]),
-            Row(children: [Icon(Icons.person), Text('홍길동')]),
-            Row(children: [Icon(Icons.person), Text('홍길동')]),
-            Row(children: [Icon(Icons.person), Text('홍길동')]),
-            Row(children: [Icon(Icons.person), Text('홍길동')]),
-            Row(children: [Icon(Icons.person), Text('홍길동')]),
-            Row(children: [Icon(Icons.person), Text('홍길동')]),
-          ],
+        body: ListView.builder(
+          itemCount: 3,
+          itemBuilder: (context, idx){
+            return ListTile(
+              leading: Icon(Icons.person),
+              title: Text(idx.toString() + 'test'),
+            );
+          },
+
         ),
         bottomNavigationBar: Bottom(),
       )
