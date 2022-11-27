@@ -14,6 +14,8 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  var confirm = '확인123';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,7 +25,7 @@ class _MyAppState extends State<MyApp> {
           showDialog(
               context: context,
               builder: (context){
-            return CustomDialog();
+            return CustomDialog(state: confirm);
           });
         }),
         appBar: AppBar(
@@ -63,7 +65,8 @@ class _MyAppState extends State<MyApp> {
 }
 
 class CustomDialog extends StatelessWidget {
-  const CustomDialog({Key? key}) : super(key: key);
+  const CustomDialog({Key? key, this.state = '완료'}) : super(key: key);
+  final state;
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +76,7 @@ class CustomDialog extends StatelessWidget {
         actions: [
           TextButton(onPressed: (){
             Navigator.of(context).pop();
-          }, child: Text('확인')),
+          }, child: Text(state)),
           TextButton(onPressed: (){
             Navigator.of(context).pop();
           }, child: Text('취소'))
