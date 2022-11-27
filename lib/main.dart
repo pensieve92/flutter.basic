@@ -14,7 +14,16 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  var confirm = '확인123';
+  var confirm = 1;
+
+
+  addSatate(){
+    setState(() {
+      print(confirm);
+      confirm++;
+    });
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,11 +34,12 @@ class _MyAppState extends State<MyApp> {
           showDialog(
               context: context,
               builder: (context){
-            return CustomDialog(state: confirm);
+            return
+              CustomDialog(state: confirm, addAction: addSatate);
           });
         }),
         appBar: AppBar(
-          title: Text('Daily'),
+          title: Text('Daily$confirm'),
         ),
         body: Align(
           alignment: Alignment.centerLeft,
@@ -64,19 +74,47 @@ class _MyAppState extends State<MyApp> {
   }
 }
 
-class CustomDialog extends StatelessWidget {
-  const CustomDialog({Key? key, this.state = '완료'}) : super(key: key);
+
+class CustomDialog extends StatefulWidget {
+  const CustomDialog({Key? key, this.state = 0, this.addAction}) : super(key: key);
   final state;
+  final addAction;
+
+  @override
+  State<CustomDialog> createState() => _CustomDialogState();
+}
+
+class _CustomDialogState extends State<CustomDialog> {
+  var count = 0;
+
+  @override
+  void initState() {
+    count = widget.state;
+  }
 
   @override
   Widget build(BuildContext context) {
+
+    add(){
+      widget.addAction();
+      setState(() {
+        print(count);
+        count++;
+      });
+    }
+
     return AlertDialog(
         title: Text('팝업메세지'),
         content: TextField(),
         actions: [
           TextButton(onPressed: (){
-            Navigator.of(context).pop();
-          }, child: Text(state)),
+            add();
+            // Navigator.of(context).pop();
+          }, child:
+          Text(
+              count.toString())
+          ),
+
           TextButton(onPressed: (){
             Navigator.of(context).pop();
           }, child: Text('취소'))
