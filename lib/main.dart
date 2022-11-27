@@ -15,14 +15,21 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   var confirm = 1;
-
+  var memberList = ['hi'];
 
   addSatate(){
     setState(() {
       print(confirm);
       confirm++;
     });
+  }
 
+  addMember(name){
+  setState(() {
+    print(name);
+    memberList.add(name);
+    print(memberList);
+  });
   }
 
   @override
@@ -35,25 +42,23 @@ class _MyAppState extends State<MyApp> {
               context: context,
               builder: (context){
             return
-              CustomDialog(state: confirm, addAction: addSatate);
+              CustomDialog(
+                  state: confirm,
+                  addAction: addSatate,
+                  addMemberAction: addMember
+              );
           });
         }),
         appBar: AppBar(
           title: Text('Daily$confirm'),
         ),
-        body: Align(
-          alignment: Alignment.centerLeft,
-          child: Container(
-            width: double.infinity, height: 150,
-            // margin: EdgeInsets.all(20),
-            margin: EdgeInsets.fromLTRB(0, 30, 0, 0),
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.red)
-            ),
-            padding: EdgeInsets.all(20),
+        body: ListView.builder(
+            itemCount: memberList.length,
+            itemBuilder: (context, index){
+              return Text(memberList[index]);
+            },
 
-            child: Text('day'),
-          ),
+
         ),
 
         bottomNavigationBar: BottomAppBar(
@@ -76,9 +81,10 @@ class _MyAppState extends State<MyApp> {
 
 
 class CustomDialog extends StatefulWidget {
-  const CustomDialog({Key? key, this.state = 0, this.addAction}) : super(key: key);
+  const CustomDialog({Key? key, this.state = 0, this.addAction, this.addMemberAction}) : super(key: key);
   final state;
   final addAction;
+  final addMemberAction;
 
   @override
   State<CustomDialog> createState() => _CustomDialogState();
@@ -86,6 +92,7 @@ class CustomDialog extends StatefulWidget {
 
 class _CustomDialogState extends State<CustomDialog> {
   var count = 0;
+  var input = {    'name': '',  };
 
   @override
   void initState() {
@@ -103,12 +110,20 @@ class _CustomDialogState extends State<CustomDialog> {
       });
     }
 
+
     return AlertDialog(
         title: Text('팝업메세지'),
-        content: TextField(),
+        content: TextField(onChanged: (value){
+          setState(() {
+            input['name'] = value;
+          });
+        },),
         actions: [
           TextButton(onPressed: (){
-            add();
+            // add();
+            // print(input['name']);
+            widget.addMemberAction(input['name']);
+
             // Navigator.of(context).pop();
           }, child:
           Text(
