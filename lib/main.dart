@@ -29,15 +29,7 @@ class MyApp extends StatelessWidget {
             Row(children: [Icon(Icons.person), Text('홍길동')]),
           ],
         ),
-        bottomNavigationBar: BottomAppBar(
-          child: SizedBox(
-            height: 50,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [Icon(Icons.phone), Icon(Icons.message), Icon(Icons.download)],
-            ),
-          ),
-        ),
+        bottomNavigationBar: Bottom(),
       )
     );
   }
@@ -51,8 +43,6 @@ const a = SizedBox(
 class Test extends StatelessWidget {
   const Test({Key? key}) : super(key: key);
 
-
-
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -60,6 +50,24 @@ class Test extends StatelessWidget {
     );
   }
 }
+
+class Bottom extends StatelessWidget {
+  const Bottom({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return BottomAppBar(
+        child: SizedBox(
+          height: 50,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [Icon(Icons.phone), Icon(Icons.message), Icon(Icons.download)],
+          ),
+        )
+      );
+  }
+}
+
 
 
 
