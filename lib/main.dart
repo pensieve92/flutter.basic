@@ -23,18 +23,7 @@ class _MyAppState extends State<MyApp> {
           showDialog(
               context: context,
               builder: (context){
-            return AlertDialog(
-                title: Text('팝업메세지'),
-              content: TextField(),
-              actions: [
-                TextButton(onPressed: (){
-                  Navigator.of(context).pop();
-                }, child: Text('확인')),
-                TextButton(onPressed: (){
-                  Navigator.of(context).pop();
-                }, child: Text('취소'))
-              ]
-            );
+            return CustomDialog();
           });
         }),
         appBar: AppBar(
@@ -73,6 +62,25 @@ class _MyAppState extends State<MyApp> {
   }
 }
 
+class CustomDialog extends StatelessWidget {
+  const CustomDialog({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+        title: Text('팝업메세지'),
+        content: TextField(),
+        actions: [
+          TextButton(onPressed: (){
+            Navigator.of(context).pop();
+          }, child: Text('확인')),
+          TextButton(onPressed: (){
+            Navigator.of(context).pop();
+          }, child: Text('취소'))
+        ]
+    );
+  }
+}
 
 
 
