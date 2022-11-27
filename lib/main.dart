@@ -17,42 +17,51 @@ class MyApp extends StatelessWidget {
       //   child: Container( width: 50, height: 10, color: Colors.greenAccent),
       // )
       home: Scaffold(
-        appBar: AppBar(
-          title: Text('Daily'),
+        appBar: AppBar(),
+        body: ListView(
+          children: [
+            Row(children: [Icon(Icons.person), Text('홍길동')]),
+            Row(children: [Icon(Icons.person), Text('홍길동')]),
+            Row(children: [Icon(Icons.person), Text('홍길동')]),
+            Row(children: [Icon(Icons.person), Text('홍길동')]),
+            Row(children: [Icon(Icons.person), Text('홍길동')]),
+            Row(children: [Icon(Icons.person), Text('홍길동')]),
+            Row(children: [Icon(Icons.person), Text('홍길동')]),
+          ],
         ),
-        body: Align(
-          alignment: Alignment.centerLeft,
-          child: Container(
-            width: double.infinity, height: 150,
-            // margin: EdgeInsets.all(20),
-            margin: EdgeInsets.fromLTRB(0, 30, 0, 0),
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.red)
-            ),
-            padding: EdgeInsets.all(20),
-
-            child: Text('day'),
-          ),
-        ),
-
         bottomNavigationBar: BottomAppBar(
           child: SizedBox(
             height: 50,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Icon(Icons.phone),
-                Icon(Icons.message),
-                Icon(Icons.contact_page)
-              ],
+              children: [Icon(Icons.phone), Icon(Icons.message), Icon(Icons.download)],
             ),
-          )
-
+          ),
         ),
       )
     );
   }
 }
+const a = SizedBox(
+  child: Text('안녕'),
+);
+
+
+// stless + Tab 자동완성
+class Test extends StatelessWidget {
+  const Test({Key? key}) : super(key: key);
+
+
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      child: Text('test')
+    );
+  }
+}
+
+
 
 
 
