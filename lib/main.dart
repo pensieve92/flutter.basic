@@ -1,5 +1,7 @@
 import 'package:permission_handler/permission_handler.dart';
+import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
+
 
 void main() {
   runApp(MaterialApp(
@@ -16,7 +18,10 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   var confirm = 1;
-  var memberList = ['hi'];
+  List<Contact> memberList = [Contact(displayName: 'test')];
+  // List<String> memberList = ['hi'];
+
+
 
   addSatate(){
     setState(() {
@@ -28,13 +33,15 @@ class _MyAppState extends State<MyApp> {
   addMember(name){
   setState(() {
     print(name);
-    memberList.add(name);
+    // memberList.add(name);
     print(memberList);
   });
   }
 
   @override
   Widget build(BuildContext context) {
+
+
     return Scaffold(
         floatingActionButton: FloatingActionButton(onPressed: (){
           print('constext $context');
@@ -57,7 +64,7 @@ class _MyAppState extends State<MyApp> {
         body: ListView.builder(
             itemCount: memberList.length,
             itemBuilder: (context, index){
-              return Text(memberList[index]);
+              return Text(memberList[index].displayName.toString());
             },
 
 
@@ -84,6 +91,26 @@ class _MyAppState extends State<MyApp> {
     var state = await Permission.contacts.status;
     if(state.isGranted){
       print('허락됨');
+      var contacts = await ContactsService.getContacts();
+      contacts.forEach((element) {
+        print(element.displayName);
+      });
+
+      // contact 추가
+      var newPerson = Contact();
+      newPerson.familyName = 'Kim';
+      newPerson.givenName = 'SeoBang';
+      ContactsService.addContact(newPerson);
+
+      var newContacts = await ContactsService.getContacts();
+      newContacts.forEach((element) {
+        print(element.displayName);
+      });
+
+      setState(() {
+        // memberList = newContacts;
+
+      });
     }else if(state.isDenied){
       print('거절됨');
       Permission.contacts.request();
