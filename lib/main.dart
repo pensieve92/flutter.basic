@@ -1,3 +1,4 @@
+import 'package:permission_handler/permission_handler.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -51,6 +52,7 @@ class _MyAppState extends State<MyApp> {
         }),
         appBar: AppBar(
           title: Text('Daily$confirm'),
+          actions: [IconButton(onPressed: (){getPermission();}, icon: Icon(Icons.contact_phone_outlined))],
         ),
         body: ListView.builder(
             itemCount: memberList.length,
@@ -76,6 +78,17 @@ class _MyAppState extends State<MyApp> {
         ),
       );
 
+  }
+
+  void getPermission() async {
+    var state = await Permission.contacts.status;
+    if(state.isGranted){
+      print('허락됨');
+    }else if(state.isDenied){
+      print('거절됨');
+      Permission.contacts.request();
+      openAppSettings();
+    }
   }
 }
 
